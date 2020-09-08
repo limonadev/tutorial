@@ -1,0 +1,28 @@
+{
+  "name": "Simple",
+  "steps": [
+    {
+      "id": "tap",
+      "image": null,
+      "values": {
+        "testableId": "fab"
+      }
+    },
+    {
+      "id": "sleep",
+      "image": null,
+      "values": {
+        "timeout": 3
+      }
+    },
+    {
+      "id": "assert_value",
+      "image": null,
+      "values": {
+        "testableId": "text_value",
+        "value": "1",
+        "equals": "true"
+      }
+    }
+  ]
+}

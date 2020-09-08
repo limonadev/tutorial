@@ -1,7 +1,21 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 
 void main() {
+  AssetTestStore.testAssets = [
+    'assets/simple.json',
+  ];
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+    print('${record.level.name}: ${record.time}: ${record.message}');
+    if (record.error != null) {
+      print('${record.error}');
+    }
+    if (record.stackTrace != null) {
+      print('${record.stackTrace}');
+    }
+  });
   runApp(MyApp());
 }
 
@@ -12,9 +26,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  UniqueKey _uniqueKey;
   TestController _testController;
 
   Future<void> _onReset() async {
+    _uniqueKey = UniqueKey();
     setState(() {});
   }
 
@@ -24,23 +40,32 @@ class _MyAppState extends State<MyApp> {
     _testController = TestController(
       navigatorKey: _navigatorKey,
       onReset: _onReset,
+      testReader: AssetTestStore.testReader,
     );
+
+    //_uniqueKey = UniqueKey();
+
+    _runTests();
+  }
+
+  Future<void> _runTests() async {
+    var tests = await _testController.loadTests(context);
+    await _testController.runPendingTests(tests);
   }
 
   @override
   Widget build(BuildContext context) {
     return TestRunner(
       controller: _testController,
-      enabled: true,
       child: MaterialApp(
-        key: UniqueKey(),
+        key: _uniqueKey,
         navigatorKey: _navigatorKey,
         title: 'Automated Testing Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: Container(),
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
   }
@@ -77,17 +102,23 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Testable(
+              id: 'text_value',
+              child: Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      floatingActionButton: Testable(
+        id: 'fab',
+        child: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }

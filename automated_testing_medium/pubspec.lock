@@ -18,10 +18,10 @@ packages:
   automated_testing_framework:
     dependency: "direct main"
     description:
-      name: automated_testing_framework
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
+      path: "../../automated_testing_framework"
+      relative: true
+    source: path
+    version: "1.0.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -194,7 +194,7 @@ packages:
     source: hosted
     version: "1.3.3+1"
   logging:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: logging
       url: "https://pub.dartlang.org"
@@ -459,13 +459,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7+15"
-  websafe_platform:
-    dependency: transitive
-    description:
-      name: websafe_platform
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.5"
 sdks:
   dart: ">=2.9.0-14.0.dev <3.0.0"
   flutter: ">=1.16.0 <3.0.0"
