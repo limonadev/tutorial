@@ -9,13 +9,6 @@
       }
     },
     {
-      "id": "sleep",
-      "image": null,
-      "values": {
-        "timeout": 3
-      }
-    },
-    {
       "id": "assert_value",
       "image": null,
       "values": {

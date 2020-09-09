@@ -26,10 +26,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-  UniqueKey _uniqueKey;
   TestController _testController;
+  UniqueKey _uniqueKey;
 
   Future<void> _onReset() async {
+    while (_navigatorKey.currentState?.canPop() == true) {
+      _navigatorKey.currentState.pop();
+    }
     _uniqueKey = UniqueKey();
     setState(() {});
   }
@@ -43,14 +46,20 @@ class _MyAppState extends State<MyApp> {
       testReader: AssetTestStore.testReader,
     );
 
-    //_uniqueKey = UniqueKey();
-
     _runTests();
   }
 
   Future<void> _runTests() async {
+    /*
     var tests = await _testController.loadTests(context);
     await _testController.runPendingTests(tests);
+    */
+    print('Starting delay... Please press the button before the time ends.');
+    await Future<dynamic>.delayed(Duration(seconds: 5));
+    setState(() {
+      _uniqueKey = UniqueKey();
+    });
+    print('Has been the screen reloaded?');
   }
 
   @override
