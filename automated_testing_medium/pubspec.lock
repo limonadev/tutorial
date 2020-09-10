@@ -21,7 +21,7 @@ packages:
       name: automated_testing_framework
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -106,6 +106,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2+dart2"
+  device_info:
+    dependency: transitive
+    description:
+      name: device_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.2+7"
+  device_info_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -249,6 +263,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
+  package_info:
+    dependency: transitive
+    description:
+      name: package_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3"
   package_resolver:
     dependency: transitive
     description:
@@ -277,6 +298,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   provider:
     dependency: transitive
     description:
@@ -459,6 +487,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7+15"
+  websafe_platform:
+    dependency: transitive
+    description:
+      name: websafe_platform
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
 sdks:
   dart: ">=2.9.0-14.0.dev <3.0.0"
-  flutter: ">=1.16.0 <3.0.0"
+  flutter: ">=1.16.0 <2.0.0"
