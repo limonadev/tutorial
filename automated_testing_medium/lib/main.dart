@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 void main() {
-  AssetTestStore.testAssets = [
-    'assets/simple.json',
-  ];
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
     print('${record.level.name}: ${record.time}: ${record.message}');
@@ -27,14 +24,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   TestController _testController;
-  UniqueKey _uniqueKey;
 
   Future<void> _onReset() async {
     while (_navigatorKey.currentState?.canPop() == true) {
       _navigatorKey.currentState.pop();
     }
-    _uniqueKey = UniqueKey();
-    setState(() {});
+    _navigatorKey.currentState.pushReplacementNamed('/');
   }
 
   @override
@@ -43,23 +38,21 @@ class _MyAppState extends State<MyApp> {
     _testController = TestController(
       navigatorKey: _navigatorKey,
       onReset: _onReset,
-      testReader: AssetTestStore.testReader,
+      testReader: AssetTestStore(
+        testAssets: [
+          'assets/simple.json',
+        ],
+      ).testReader,
     );
 
     _runTests();
   }
 
   Future<void> _runTests() async {
-    /*
+    await Future<dynamic>.delayed(Duration(seconds: 3));
+    print('Starting');
     var tests = await _testController.loadTests(context);
     await _testController.runPendingTests(tests);
-    */
-    print('Starting delay... Please press the button before the time ends.');
-    await Future<dynamic>.delayed(Duration(seconds: 5));
-    setState(() {
-      _uniqueKey = UniqueKey();
-    });
-    print('Has been the screen reloaded?');
   }
 
   @override
@@ -67,7 +60,6 @@ class _MyAppState extends State<MyApp> {
     return TestRunner(
       controller: _testController,
       child: MaterialApp(
-        key: _uniqueKey,
         navigatorKey: _navigatorKey,
         title: 'Automated Testing Demo',
         theme: ThemeData(
